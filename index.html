@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DarkCore.AI — Dark Psychology Shorts Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* bg-gray-900 */
+            color: #f3f4f6; /* text-gray-100 */
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .sidebar {
+            transition: width 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Application Container -->
+    <div id="app-container" class="flex min-h-screen">
+
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed top-0 left-0 h-full bg-gray-800 border-r border-gray-700/50 text-white flex-col transition-all duration-300 z-20 w-64 flex">
+            <div class="flex items-center justify-between p-4 border-b border-gray-700/50">
+                <h1 id="sidebar-title" class="text-xl font-bold text-red-500">DarkCore.AI</h1>
+                <button id="sidebar-toggle-btn" class="p-2 rounded-lg hover:bg-gray-700">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+            </div>
+            <nav class="flex-1 p-4">
+                <ul>
+                    <li class="mb-2">
+                        <a href="#" id="nav-howItWorks" class="nav-item flex items-center p-3 rounded-lg transition-colors duration-200">
+                            <i data-lucide="home" class="w-5 h-5"></i>
+                            <span class="sidebar-text ml-4 font-medium">How It Works</span>
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" id="nav-createVideo" class="nav-item flex items-center p-3 rounded-lg transition-colors duration-200">
+                            <i data-lucide="zap" class="w-5 h-5"></i>
+                            <span class="sidebar-text ml-4 font-medium">Create Video</span>
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" id="nav-myProjects" class="nav-item flex items-center p-3 rounded-lg transition-colors duration-200">
+                            <i data-lucide="list-video" class="w-5 h-5"></i>
+                            <span class="sidebar-text ml-4 font-medium">My Projects</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="p-4 border-t border-gray-700/50">
+                <p id="sidebar-footer" class="sidebar-text text-xs text-gray-500">Developed by Mustafa Talks</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main id="main-content" class="flex-1 transition-all duration-300 ml-64">
+            <div class="p-4 sm:p-6 lg:p-8">
+                <!-- Views will be dynamically inserted here -->
+                <div id="view-container"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- View Templates (hidden by default) -->
+    <div id="templates" class="hidden">
+        
+        <!-- Loading Spinner Template -->
+        <div id="loading-spinner-template">
+             <div class="flex flex-col items-center justify-center p-8 bg-gray-800/50 rounded-lg">
+                <i data-lucide="refresh-cw" class="w-8 h-8 animate-spin text-red-500 mb-4"></i>
+                <p class="text-gray-300 italic" id="loading-text">Loading...</p>
+            </div>
+        </div>
+
+        <!-- How It Works View Template -->
+        <div id="howItWorks-view-template">
+            <div class="max-w-4xl mx-auto animate-fadeIn">
+                <h2 class="text-3xl md:text-4xl font-bold text-red-500 mb-4">Welcome to DarkCore.AI</h2>
+                <p class="text-lg text-gray-300 mb-8">Your all-in-one studio for creating compelling, dark psychology-themed Shorts for faceless channels.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <h3 class="text-2xl font-semibold text-red-400 mb-3">The Workflow</h3>
+                        <ol class="list-decimal list-inside space-y-3 text-gray-300">
+                            <li><span class="font-bold">Start a New Project:</span> Click "Create Video".</li>
+                            <li><span class="font-bold">Choose Your Theme:</span> Select a dark theme to set the tone.</li>
+                            <li><span class="font-bold">Generate Viral Hooks:</span> Our AI creates irresistible hooks to stop the scroll.</li>
+                            <li><span class="font-bold">Get the Voiceover Script:</span> The AI writes the full script for the creator to speak.</li>
+                            <li><span class="font-bold text-green-400">Generate The Visuals:</span> Create a cinematic image for each scene using AI.</li>
+                            <li><span class="font-bold">Package for Upload:</span> AI generates multiple SEO titles, a description, and hashtags.</li>
+                            <li><span class="font-bold">Save & Delete Projects:</span> All your work is saved to "My Projects".</li>
+                        </ol>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                        <h3 class="text-2xl font-semibold text-red-400 mb-3">Core Features</h3>
+                        <ul class="list-disc list-inside space-y-3 text-gray-300">
+                            <li><span class="font-bold">AI Scriptwriting:</span> Unique angles, hooks, and full voiceover scripts.</li>
+                            <li><span class="font-bold text-green-400">AI Image Generation:</span> Create the visuals for your video directly in the app.</li>
+                            <li><span class="font-bold">Project Dashboard:</span> All projects are saved, editable, and deletable.</li>
+                            <li><span class="font-bold">Optimized for Shorts:</span> Content is structured perfectly for YouTube Shorts, TikTok, and Reels.</li>
+                            <li><span class="font-bold">Faceless Channel Ready:</span> Perfect for creators who want to stay anonymous.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Projects View Template -->
+        <div id="myProjects-view-template">
+            <div class="animate-fadeIn">
+                <div class="flex flex-wrap gap-4 justify-between items-center mb-8">
+                    <h2 class="text-3xl md:text-4xl font-bold text-red-500">My Projects</h2>
+                    <button id="my-projects-new-video-btn" class="bg-red-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-red-700 transition-colors flex items-center gap-2">
+                        <i data-lucide="zap" class="w-5 h-5"></i> New Video
+                    </button>
+                </div>
+                <div id="projects-grid-container">
+                    <!-- Projects will be inserted here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Create Video View Template -->
+        <div id="createVideo-view-template">
+            <div class="space-y-8">
+                <div class="flex flex-wrap gap-4 justify-between items-center">
+                    <h2 class="text-3xl font-bold text-red-500">Create Video</h2>
+                    <button id="save-project-btn" class="flex items-center gap-2 bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors disabled:bg-gray-500">
+                        <i data-lucide="save" class="w-5 h-5"></i> Save Project
+                    </button>
+                </div>
+                <div id="create-video-step-container" class="bg-gray-800 p-4 md:p-6 rounded-lg border border-gray-700 min-h-[300px]">
+                    <!-- Current step will be rendered here -->
+                </div>
+                <!-- Bonus Tools -->
+                <div class="mt-12">
+                    <h3 class="text-2xl font-bold text-center text-red-500 mb-2">Bonus Advanced Tools</h3>
+                    <p class="text-center text-gray-400 mb-8">Supercharge your content creation with these upcoming features.</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700/50 text-center flex flex-col items-center justify-center"><i data-lucide="refresh-cw" class="w-6 h-6 text-red-500 mb-2"></i><h4 class="font-semibold text-sm text-white mb-1 text-center">Trending Hook Feed</h4><p class="text-xs text-gray-500">Coming Soon</p></div>
+                        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700/50 text-center flex flex-col items-center justify-center"><i data-lucide="wand-2" class="w-6 h-6 text-red-500 mb-2"></i><h4 class="font-semibold text-sm text-white mb-1 text-center">Angle Rewriter</h4><p class="text-xs text-gray-500">Coming Soon</p></div>
+                        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700/50 text-center flex flex-col items-center justify-center"><i data-lucide="mic" class="w-6 h-6 text-red-500 mb-2"></i><h4 class="font-semibold text-sm text-white mb-1 text-center">Voiceover Suggestion</h4><p class="text-xs text-gray-500">Coming Soon</p></div>
+                        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700/50 text-center flex flex-col items-center justify-center"><i data-lucide="captions" class="w-6 h-6 text-red-500 mb-2"></i><h4 class="font-semibold text-sm text-white mb-1 text-center">Caption Generator</h4><p class="text-xs text-gray-500">Coming Soon</p></div>
+                        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700/50 text-center flex flex-col items-center justify-center"><i data-lucide="share-2" class="w-6 h-6 text-red-500 mb-2"></i><h4 class="font-semibold text-sm text-white mb-1 text-center">Platform Variation</h4><p class="text-xs text-gray-500">Coming Soon</p></div>
+                        <div class="bg-gray-800 p-4 rounded-lg border border-gray-700/50 text-center flex flex-col items-center justify-center"><i data-lucide="bar-chart-2" class="w-6 h-6 text-red-500 mb-2"></i><h4 class="font-semibold text-sm text-white mb-1 text-center">Basic Analytics</h4><p class="text-xs text-gray-500">Coming Soon</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Firebase and Application Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- App State ---
+        let state = {
+            view: 'howItWorks',
+            isSidebarCollapsed: window.innerWidth < 768,
+            user: null,
+            isAuthReady: false,
+            currentProject: null,
+            projects: [],
+            isLoading: false,
+            error: '',
+            // State for each step
+            hooks: [],
+            generatingScene: null,
+            copiedStates: {}
+        };
+
+        // --- Firebase Setup ---
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'darkcore-ai-studio';
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // --- DOM Elements ---
+        const viewContainer = document.getElementById('view-container');
+        const mainContent = document.getElementById('main-content');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarTitle = document.getElementById('sidebar-title');
+        const sidebarFooter = document.getElementById('sidebar-footer');
+        const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
+        const sidebarTextElements = document.querySelectorAll('.sidebar-text');
+        
+        // --- Helper Functions ---
+        function extractJson(text) {
+            if (!text || typeof text !== 'string') return null;
+            const match = text.match(/```json\s*([\s\S]*?)\s*```|({[\s\S]*})|(\[[\s\S]*\])/);
+            if (!match) return null;
+            let jsonString = match[1] || match[2] || match[3];
+            try {
+                // Remove trailing commas from objects and arrays before parsing
+                jsonString = jsonString
+                    .replace(/,\s*}/g, '}')
+                    .replace(/,\s*]/g, ']');
+                return JSON.parse(jsonString);
+            } catch (error) {
+                console.error("Failed to parse extracted JSON:", error, "Cleaned text:", jsonString, "Original text:", text);
+                return null;
+            }
+        };
+
+        function setView(newView) {
+            state.view = newView;
+            render();
+        };
+        
+        function showLoading(text = 'Loading...') {
+            const loadingTemplate = document.getElementById('loading-spinner-template').cloneNode(true);
+            loadingTemplate.querySelector('#loading-text').textContent = text;
+            lucide.createIcons({
+                nodes: [loadingTemplate.querySelector('[data-lucide]')]
+            });
+            return loadingTemplate.innerHTML;
+        };
+        
+        function handleCopy(content, id) {
+            if (!content || typeof content !== 'string') return;
+            navigator.clipboard.writeText(content).then(() => {
+                const button = document.getElementById(id);
+                if (button) {
+                    const originalIconHTML = `<i data-lucide="copy" class="w-4 h-4"></i>`;
+                    button.innerHTML = `<i data-lucide="check" class="w-4 h-4 text-green-400"></i>`;
+                    lucide.createIcons({nodes: [button.querySelector('[data-lucide]')]});
+                    setTimeout(() => {
+                        button.innerHTML = originalIconHTML;
+                         lucide.createIcons({nodes: [button.querySelector('[data-lucide]')]});
+                    }, 2000);
+                }
+            });
+        };
+
+        // --- Core Logic Functions (declared as functions to ensure they are hoisted) ---
+        
+        function createNewProject() {
+            state.currentProject = {
+                theme: 'Dark Psychology', topic: '', hook: '', script: [], visuals: [],
+                metadata: { titles: [], description: '', hashtags: [], firstComment: '', aboutTopic: '' },
+                createdAt: new Date(), status: 'new'
+            };
+            setView('createVideo');
+        };
+
+        async function saveProject(projectToSave) {
+            if (!state.user || !projectToSave) return;
+            const projectData = { ...projectToSave, updatedAt: serverTimestamp() };
+            const projectsCollectionPath = `artifacts/${appId}/users/${state.user.uid}/projects`;
+            try {
+                if (projectToSave.id) {
+                    const projectRef = doc(db, projectsCollectionPath, projectToSave.id);
+                    await updateDoc(projectRef, projectData);
+                } else {
+                    const docRef = await addDoc(collection(db, projectsCollectionPath), { ...projectData, createdAt: serverTimestamp() });
+                    state.currentProject.id = docRef.id;
+                }
+                const saveBtn = document.getElementById('save-project-btn');
+                if(saveBtn) saveBtn.disabled = !state.currentProject.id;
+            } catch (error) {
+                console.error("Error saving project: ", error);
+            }
+        };
+        
+        async function deleteProject(projectId) {
+            if (!state.user || !projectId) return;
+            if (window.confirm("Are you sure you want to delete this project permanently? This action cannot be undone.")) {
+                try {
+                    const projectRef = doc(db, `artifacts/${appId}/users/${state.user.uid}/projects`, projectId);
+                    await deleteDoc(projectRef);
+                    if (state.currentProject?.id === projectId) {
+                        state.currentProject = null;
+                        setView('myProjects');
+                    }
+                } catch (error) {
+                    console.error("Error deleting project: ", error);
+                }
+            }
+        };
+
+        const AI_API = {
+            async generateText(prompt) {
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { temperature: 0.8, topP: 0.9 } };
+                const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if (!response.ok) {
+                    const errorBody = await response.text();
+                    throw new Error(`API request failed with status ${response.status}: ${errorBody}`);
+                }
+                const result = await response.json();
+                if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
+                    return result.candidates[0].content.parts[0].text;
+                }
+                throw new Error("Unexpected API response structure.");
+            },
+            async generateImage(prompt) {
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+                const payload = { instances: [{ prompt }], parameters: { "sampleCount": 1 } };
+                const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if (!response.ok) throw new Error(`Image generation failed with status ${response.status}`);
+                const result = await response.json();
+                if (result.predictions?.[0]?.bytesBase64Encoded) {
+                    return `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
+                }
+                throw new Error("No image data in API response.");
+            }
+        };
+
+        async function generateHooks() {
+            const topicInput = document.getElementById('hook-topic-input');
+            const topic = topicInput.value;
+            if (!topic) {
+                alert('Please enter a topic.');
+                return;
+            }
+            const feedbackContainer = document.getElementById('hook-feedback-container');
+            const listContainer = document.getElementById('hooks-list-container');
+            feedbackContainer.innerHTML = showLoading('AI is forging hooks in the dark...');
+            listContainer.innerHTML = '';
+
+            const prompt = `You are DarkCore.AI, an expert in creating viral, curiosity-driven content for YouTube Shorts in the dark psychology niche. Theme: ${state.currentProject.theme}. Topic: ${topic}. Generate 5 unique, powerful, and curiosity-inducing hooks (under 15 words). Respond with ONLY a valid JSON array of strings. Example: ["Hook 1...", "Hook 2..."].`;
+            try {
+                const response = await AI_API.generateText(prompt);
+                const parsedHooks = extractJson(response);
+                if (!parsedHooks || !Array.isArray(parsedHooks)) throw new Error("AI returned invalid format.");
+                
+                feedbackContainer.innerHTML = '';
+                listContainer.innerHTML = `<h4 class="font-semibold text-lg mb-3">Select the best hook:</h4><div class="space-y-3">
+                    ${parsedHooks.map(hook => `<button data-hook="${hook}" class="hook-select-btn w-full text-left bg-gray-900 p-4 rounded-lg border border-gray-700 hover:border-red-500 transition-colors">
+                        <p class="text-gray-200">${hook}</p>
+                    </button>`).join('')}
+                </div>`;
+                document.querySelectorAll('.hook-select-btn').forEach(btn => btn.addEventListener('click', e => {
+                    state.currentProject.hook = e.currentTarget.dataset.hook;
+                    state.currentProject.status = 'hook_selected';
+                    saveProject(state.currentProject);
+                    renderCreateVideoStep();
+                }));
+            } catch (e) {
+                feedbackContainer.innerHTML = `<p class="text-red-500 text-sm bg-red-900/30 p-3 rounded-lg">Failed to generate hooks: ${e.message}. Please try again.</p>`;
+            }
+        }
+
+        async function generateScript() {
+            const feedbackContainer = document.getElementById('script-feedback-container');
+            const contentContainer = document.getElementById('script-content-container');
+            if (feedbackContainer) feedbackContainer.innerHTML = showLoading('Crafting a narrative from the shadows...');
+            if (contentContainer) contentContainer.innerHTML = '';
+            
+            const prompt = `You are DarkCore.AI, a master scriptwriter for dark psychology YouTube Shorts. Create a unique, robust 30-50 second script for the theme "${state.currentProject.theme}" and hook: "${state.currentProject.hook}". The script MUST follow this specific 4-part structure: 1. Hook, 2. Real Example, 3. Mindset Twist, 4. Call to Action. Split the final output into 5-10 scenes. Respond with ONLY a valid JSON array of objects with "scene" and "line" keys.`;
+            try {
+                const response = await AI_API.generateText(prompt);
+                const parsedScript = extractJson(response);
+                if (!parsedScript || !Array.isArray(parsedScript)) throw new Error("AI returned invalid format.");
+                state.currentProject.script = parsedScript;
+                state.currentProject.status = 'script_generated';
+                await saveProject(state.currentProject);
+                renderCreateVideoStep();
+            } catch (e) {
+                if(feedbackContainer) feedbackContainer.innerHTML = `<p class="text-red-500 text-sm bg-red-900/30 p-3 rounded-lg">Failed to generate script: ${e.message}. Please try again.</p>`;
+            }
+        }
+
+        async function generateVisualPrompts() {
+            const feedbackContainer = document.getElementById('visuals-feedback-container');
+            const listContainer = document.getElementById('visuals-list-container');
+            if(feedbackContainer) feedbackContainer.innerHTML = showLoading('Scanning the abyss for visual concepts...');
+            if(listContainer) listContainer.innerHTML = '';
+
+            const scriptText = state.currentProject.script.map(s => `Scene ${s.scene}: ${s.line}`).join('\n');
+            const prompt = `You are DarkCore.AI, a creative director for dark, cinematic visuals. Theme: ${state.currentProject.theme}. Script:\n${scriptText}\nFor each scene, generate visual prompts. Mood: dark, moody, cinematic, noir, glitch. For each scene provide "stock" (keywords for stock footage) and "ai_prompt" (for AI video generators). Respond with ONLY a valid JSON array of objects, one for each scene. Example: [{"scene": 1, "stock": "...", "ai_prompt": "..."}].`;
+            try {
+                const response = await AI_API.generateText(prompt);
+                const parsedVisuals = extractJson(response);
+                if (!parsedVisuals || !Array.isArray(parsedVisuals)) throw new Error("AI returned invalid format for visual prompts.");
+                state.currentProject.visuals = parsedVisuals.map(v => ({...(state.currentProject.visuals.find(pv => pv.scene === v.scene) || {}), ...v}));
+                state.currentProject.status = 'visuals_generated';
+                await saveProject(state.currentProject);
+                renderCreateVideoStep();
+            } catch (e) {
+                if(feedbackContainer) feedbackContainer.innerHTML = `<p class="text-red-500 text-sm bg-red-900/30 p-3 rounded-lg">Failed to generate visual prompts. ${e.message}. Please try again.</p>`;
+            }
+        }
+        
+        async function handleGenerateImage(sceneNumber, aiPrompt) {
+            state.generatingScene = sceneNumber;
+            renderCreateVideoStep(); // Re-render to show loading state
+            try {
+                const imageUrl = await AI_API.generateImage(aiPrompt);
+                const visual = state.currentProject.visuals.find(v => v.scene === sceneNumber);
+                if(visual) {
+                    visual.generatedImageUrl = imageUrl;
+                    visual.error = null;
+                }
+                await saveProject(state.currentProject);
+            } catch (e) {
+                const visual = state.currentProject.visuals.find(v => v.scene === sceneNumber);
+                if(visual) visual.error = 'Image generation failed.';
+            } finally {
+                state.generatingScene = null;
+                renderCreateVideoStep();
+            }
+        }
+
+        async function generateMetadata() {
+            const feedbackContainer = document.getElementById('metadata-feedback-container');
+            const contentContainer = document.getElementById('metadata-content-container');
+            if(feedbackContainer) feedbackContainer.innerHTML = showLoading('Optimizing for the algorithm...');
+            if(contentContainer) contentContainer.innerHTML = '';
+            
+            const scriptSummary = state.currentProject.script.map(s => s.line).join(' ');
+            const prompt = `You are DarkCore.AI, an SEO expert for YouTube Shorts specializing in the dark psychology niche. Theme: ${state.currentProject.theme}. Topic: ${state.currentProject.topic}. Script Summary: "${scriptSummary}". Generate a complete metadata package. Respond with ONLY a valid JSON object with these keys: "titles" (an array of 3 unique, SEO-optimized titles with emojis, <70 chars), "description" (2-3 lines, keywords, CTA), "hashtags" (array of 5-10 top hashtags), "firstComment" (engaging, pinned comment), and "aboutTopic" (a detailed, 100-150 word paragraph about the video's main topic for use in blog posts or extended descriptions).`;
+            try {
+                const response = await AI_API.generateText(prompt);
+                const parsedMetadata = extractJson(response);
+                if (!parsedMetadata) throw new Error("AI returned invalid format for metadata.");
+                state.currentProject.metadata = parsedMetadata;
+                state.currentProject.status = 'complete';
+                await saveProject(state.currentProject);
+                renderCreateVideoStep();
+            } catch (e) {
+                if(feedbackContainer) feedbackContainer.innerHTML = `<p class="text-red-500 text-sm bg-red-900/30 p-3 rounded-lg">Failed to generate metadata: ${e.message}. Please try again.</p>`;
+            }
+        }
+        
+        function exportProject(format) {
+            const project = state.currentProject;
+            const filename = `DarkCoreAI_${(project.metadata.titles?.[0] || "project").replace(/[^a-z0-9]/gi, '_').slice(0,20)}`;
+            if (format === 'txt') {
+                let textContent = `DarkCore.AI Project Export\n=========================\n\nTheme: ${project.theme}\nTopic: ${project.topic}\n\n--- METADATA ---\nTitles:\n- ${project.metadata.titles?.join('\n- ')}\n\nDescription: ${project.metadata.description}\n\nAbout the Topic:\n${project.metadata.aboutTopic}\n\nHashtags: ${project.metadata.hashtags?.join(' ')}\n\nPinned Comment: ${project.metadata.firstComment}\n\n--- VOICEOVER SCRIPT ---\n`;
+                project.script.forEach(s => { textContent += `Scene ${s.scene}: ${s.line}\n`; });
+                textContent += `\n--- VISUALS ---\n`;
+                project.visuals.forEach(v => {
+                    const sceneLine = project.script.find(s => s.scene === v.scene)?.line || '';
+                    textContent += `Scene ${v.scene} ("${sceneLine}"):\n  - AI Prompt: ${v.ai_prompt}\n  - Image URL: ${v.generatedImageUrl ? 'Generated' : 'Not Generated'}\n\n`;
+                });
+                const blob = new Blob([textContent], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${filename}.txt`;
+                a.click();
+                URL.revokeObjectURL(url);
+            } else if (format === 'json') {
+                const jsonContent = JSON.stringify(project, null, 2);
+                const blob = new Blob([jsonContent], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${filename}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        }
+
+        // --- Step Renderers and Event Handlers ---
+        
+        function renderThemeSelectorStep() {
+            const themes = [
+                'Dark Psychology', 'Manipulation Tactics', 'Human Behavior Secrets',
+                'Toxic Relationships', 'Cult Tactics', 'Historical Mind Games',
+                'Covert Influence', 'Psychological Warfare', 'Mind Games'
+            ];
+            return `<div class="animate-fadeIn">
+                <h2 class="text-3xl font-bold text-center text-red-500 mb-2">Step 1: Pick Your Dark Theme</h2>
+                <p class="text-center text-gray-400 mb-8">This choice will fine-tune the AI's tone, style, and suggestions.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${themes.map(theme => `<button data-theme="${theme}" class="theme-select-btn bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-red-500 hover:bg-gray-700/50 transition-all duration-200 text-left transform hover:-translate-y-1">
+                        <h3 class="text-xl font-semibold text-white mb-2">${theme}</h3>
+                        <p class="text-gray-400 text-sm">Fine-tunes hooks, script tone, and visual mood.</p>
+                    </button>`).join('')}
+                </div>
+            </div>`;
+        }
+        
+        function renderHookGeneratorStep() {
+            const themeKeywords = {
+                'Dark Psychology': ['Gaslighting', 'Cognitive Dissonance', 'The Dunning-Kruger Effect', 'Subconscious Triggers', 'Fear Response'],
+                'Manipulation Tactics': ['Love Bombing', 'Guilt Tripping', 'Covert Narcissism', 'Silent Treatment', 'Triangulation'],
+                'Human Behavior Secrets': ['The Bystander Effect', 'Herd Mentality', 'Primal Instincts', 'Body Language Lies', 'Unspoken Social Rules'],
+                'Toxic Relationships': ['Trauma Bonding', 'Emotional Blackmail', 'Codependency', 'Hoovering', 'Reactive Abuse'],
+                'Cult Tactics': ['Isolation', 'Sleep Deprivation', 'Charismatic Leaders', 'Us vs. Them Mentality', 'Indoctrination'],
+                'Historical Mind Games': ['Propaganda', 'Psychological Warfare', 'Ancient Interrogation', 'Mass Hysteria', 'Political Manipulation'],
+                'Covert Influence': ['Subliminal Messaging', 'Neuromarketing', 'Social Engineering', 'Persuasion Techniques', 'NLP Anchoring'],
+                'Psychological Warfare': ['Disinformation Campaigns', 'Undermining Morale', 'Fear Mongering', 'Gaslighting at Scale', 'Controlled Narratives'],
+                'Mind Games': ['Strategic Ambiguity', 'Double Binds', 'Paradoxical Injunctions', 'Push-Pull Dynamics', 'Plausible Deniability']
+            };
+            const suggestions = themeKeywords[state.currentProject.theme] || [];
+
+            return `<div class="animate-fadeIn">
+                <h3 class="text-2xl font-bold text-red-400 mb-1">Step 2: Viral Hook Generator</h3>
+                <p class="text-gray-400 mb-4">Enter a topic or select a suggestion for your theme: <span class="font-bold text-white">${state.currentProject.theme}</span></p>
+                <div class="flex flex-col sm:flex-row gap-4 mb-4">
+                    <input type="text" id="hook-topic-input" value="${state.currentProject.topic || ''}" placeholder="e.g., Gaslighting, The Dunning-Kruger Effect" class="flex-grow bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500" />
+                    <button id="generate-hooks-btn" class="bg-red-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-red-700 transition-colors flex items-center justify-center gap-2 disabled:bg-gray-500">
+                        <i data-lucide="wand-2" class="w-5 h-5"></i> Generate
+                    </button>
+                </div>
+                <div class="mb-4">
+                    <h4 class="text-sm font-semibold text-gray-400 mb-2">Suggestions:</h4>
+                    <div class="flex flex-wrap gap-2">
+                        ${suggestions.map(keyword => `<button data-keyword="${keyword}" class="keyword-suggestion-btn bg-gray-700 text-gray-200 px-3 py-1 text-sm rounded-full hover:bg-red-800 transition-colors">${keyword}</button>`).join('')}
+                    </div>
+                </div>
+                <div id="hook-feedback-container"></div>
+                <div id="hooks-list-container" class="mt-4"></div>
+            </div>`;
+        }
+        
+        function renderScriptBuilderStep() {
+            const { script, hook } = state.currentProject;
+            let scriptHtml = '';
+            if (script && script.length > 0) {
+                scriptHtml = `<div class="space-y-2 bg-gray-900 p-4 rounded-lg">
+                    ${script.map(item => `<div class="flex gap-4 items-start">
+                        <span class="text-red-500 font-bold text-sm leading-relaxed">S${item.scene}:</span>
+                        <p class="text-gray-300 flex-1 leading-relaxed">${item.line}</p>
+                    </div>`).join('')}
+                </div>
+                <div class="flex justify-end gap-4 mt-4">
+                    <button id="change-hook-btn" class="text-gray-400 hover:text-white transition-colors">Change Hook</button>
+                    <button id="next-to-visuals-btn" class="bg-red-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-red-700 transition-colors">
+                        Next: Generate Visuals
+                    </button>
+                </div>`;
+            }
+
+            return `<div class="animate-fadeIn">
+                <h3 class="text-2xl font-bold text-red-400 mb-1">Step 3: Script Builder</h3>
+                <p class="text-gray-400 mb-4">The AI is writing a full voiceover script based on your hook.</p>
+                <div class="bg-gray-900 p-4 rounded-lg border border-gray-700 mb-4">
+                    <p class="font-bold text-lg text-white">Selected Hook:</p>
+                    <p class="italic text-gray-300">"${hook}"</p>
+                </div>
+                <div id="script-feedback-container"></div>
+                <div id="script-content-container">${scriptHtml}</div>
+            </div>`;
+        }
+        
+        function renderVisualsGeneratorStep() {
+             const { visuals, script } = state.currentProject;
+            let visualsHtml = visuals && visuals.length > 0 ? visuals.map(visualItem => {
+                const sceneItem = script.find(s => s.scene === visualItem.scene);
+                if (!sceneItem) return '';
+                const isGeneratingThisScene = state.generatingScene === sceneItem.scene;
+                
+                let imageContent = '';
+                if (isGeneratingThisScene) {
+                    imageContent = showLoading('Conjuring image...');
+                } else if (visualItem.generatedImageUrl) {
+                    imageContent = `<img src="${visualItem.generatedImageUrl}" alt="Generated visual for scene ${sceneItem.scene}" class="w-full h-full object-cover rounded-md" />`;
+                } else if (visualItem.error) {
+                    imageContent = `<p class="text-red-500 text-center">${visualItem.error}</p>`;
+                } else {
+                    imageContent = `<div class="text-center text-gray-500">
+                        <i data-lucide="image" class="w-12 h-12 mx-auto mb-2"></i>
+                        <p>Visual will appear here</p>
+                    </div>`;
+                }
+
+                return `<div class="bg-gray-900 p-4 rounded-lg border border-gray-700/50">
+                    <p class="text-red-500 font-bold mb-3">Scene ${sceneItem.scene}: <span class="text-gray-300 font-normal italic">"${sceneItem.line}"</span></p>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <div class="space-y-4">
+                            <div class="bg-gray-800 p-3 rounded-lg">
+                                <div class="flex justify-between items-center"><h4 class="font-semibold text-white text-sm">AI Image Prompt</h4><button id="copy-ai-prompt-${sceneItem.scene}" class="copy-btn p-1 text-gray-500 hover:text-white"><i data-lucide="copy" class="w-4 h-4"></i></button></div>
+                                <p class="text-gray-300 text-sm mt-1">${visualItem.ai_prompt}</p>
+                            </div>
+                            <div class="bg-gray-800 p-3 rounded-lg">
+                                <div class="flex justify-between items-center"><h4 class="font-semibold text-white text-sm">Stock Footage Keywords</h4><button id="copy-stock-${sceneItem.scene}" class="copy-btn p-1 text-gray-500 hover:text-white"><i data-lucide="copy" class="w-4 h-4"></i></button></div>
+                                <p class="text-gray-300 text-sm mt-1">${visualItem.stock}</p>
+                            </div>
+                            <button data-scene="${sceneItem.scene}" data-prompt="${visualItem.ai_prompt}" ${isGeneratingThisScene ? 'disabled' : ''} class="generate-visual-btn w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2 disabled:bg-gray-500 disabled:cursor-not-allowed">
+                                ${isGeneratingThisScene ? `<i data-lucide="refresh-cw" class="w-5 h-5 animate-spin"></i> Generating...` : `<i data-lucide="sparkles" class="w-5 h-5"></i> Generate Visual`}
+                            </button>
+                        </div>
+                        <div class="bg-black rounded-lg flex items-center justify-center p-2 aspect-video">
+                            ${imageContent}
+                        </div>
+                    </div>
+                </div>`;
+            }).join('') : '';
+
+            return `<div class="animate-fadeIn">
+                <h3 class="text-2xl font-bold text-red-400 mb-1">Step 4: Generate Visuals</h3>
+                <p class="text-gray-400 mb-4">Create a cinematic image for each scene using the AI prompt.</p>
+                <div id="visuals-feedback-container"></div>
+                <div id="visuals-list-container" class="space-y-6">${visualsHtml}</div>
+                <div class="flex justify-end gap-4 mt-6">
+                    <button id="back-to-script-btn" class="text-gray-400 hover:text-white transition-colors">Go Back</button>
+                    <button id="next-to-metadata-btn" class="bg-red-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-red-700 transition-colors">
+                        Next: Generate Metadata
+                    </button>
+                </div>
+            </div>`;
+        }
+
+        function renderMetadataGeneratorStep() {
+            const { metadata } = state.currentProject;
+            
+            const copyableCard = (content, id, isPreformatted = false) => {
+                return `<div class="bg-gray-900 p-3 rounded-lg flex items-center justify-between gap-4 border border-gray-700/50">
+                    <p class="text-gray-300 flex-grow ${isPreformatted ? 'whitespace-pre-wrap' : ''}">${content || '<span class="text-gray-500 italic">Not available</span>'}</p>
+                    <button id="${id}" class="copy-btn p-2 rounded-md flex-shrink-0 transition-colors duration-200 text-gray-500 hover:text-white hover:bg-gray-700" ${!content ? 'disabled' : ''}>
+                        <i data-lucide="copy" class="w-4 h-4"></i>
+                    </button>
+                </div>`;
+            };
+
+            const metadataHtml = metadata && metadata.titles && metadata.titles.length > 0 ? `
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="font-semibold text-lg text-white mb-2">SEO Titles</h4>
+                        <div class="space-y-3">
+                            ${metadata.titles.map((title, index) => copyableCard(title, `copy-title-${index}`)).join('')}
+                        </div>
+                    </div>
+                    <div><h4 class="font-semibold text-lg text-white mb-2">Description</h4>${copyableCard(metadata.description, 'copy-description', true)}</div>
+                    <div><h4 class="font-semibold text-lg text-white mb-2">About the Topic</h4>${copyableCard(metadata.aboutTopic, 'copy-about', true)}</div>
+                    <div><h4 class="font-semibold text-lg text-white mb-2">Hashtags</h4>${copyableCard(metadata.hashtags?.join(' '), 'copy-hashtags')}</div>
+                    <div><h4 class="font-semibold text-lg text-white mb-2">Pinned First Comment</h4>${copyableCard(metadata.firstComment, 'copy-comment')}</div>
+                    <div class="bg-gray-900 p-4 rounded-lg border border-gray-700/50">
+                        <h4 class="font-semibold text-lg text-white mb-2">Upload Suggestion</h4>
+                        <p class="text-gray-300">Best upload times for this niche are typically evenings (7-10 PM) and Sunday nights.</p>
+                    </div>
+                    <div class="flex flex-wrap justify-end gap-4 mt-6">
+                        <button id="export-txt-btn" class="flex items-center gap-2 bg-gray-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors"><i data-lucide="file-text" class="w-5 h-5"></i> Export .TXT</button>
+                        <button id="export-json-btn" class="flex items-center gap-2 bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"><i data-lucide="file-json" class="w-5 h-5"></i> Export .JSON</button>
+                    </div>
+                </div>
+            ` : '';
+
+            return `<div class="animate-fadeIn">
+                <h3 class="text-2xl font-bold text-red-400 mb-1">Step 5: Metadata & Upload Package</h3>
+                <p class="text-gray-400 mb-4">Your complete package for uploading. SEO-optimized and ready to go viral.</p>
+                <div id="metadata-feedback-container"></div>
+                <div id="metadata-content-container">${metadataHtml}</div>
+            </div>`;
+        }
+        
+        // --- Event Listeners Attacher ---
+        function attachStepEventListeners() {
+            // Theme Selector
+            document.querySelectorAll('.theme-select-btn').forEach(btn => btn.addEventListener('click', e => {
+                state.currentProject.theme = e.currentTarget.dataset.theme;
+                state.currentProject.status = 'theme_selected';
+                renderCreateVideoStep();
+            }));
+
+            // Hook Generator
+            const generateHooksBtn = document.getElementById('generate-hooks-btn');
+            if (generateHooksBtn) generateHooksBtn.addEventListener('click', generateHooks);
+            document.querySelectorAll('.keyword-suggestion-btn').forEach(btn => btn.addEventListener('click', e => {
+                const keyword = e.currentTarget.dataset.keyword;
+                const topicInput = document.getElementById('hook-topic-input');
+                if (topicInput) {
+                    topicInput.value = keyword;
+                    state.currentProject.topic = keyword;
+                }
+            }));
+
+            // Script Builder
+            const changeHookBtn = document.getElementById('change-hook-btn');
+            if(changeHookBtn) changeHookBtn.addEventListener('click', () => {
+                state.currentProject.hook = '';
+                state.currentProject.script = [];
+                state.currentProject.status = 'theme_selected';
+                renderCreateVideoStep();
+            });
+            const nextToVisualsBtn = document.getElementById('next-to-visuals-btn');
+            if(nextToVisualsBtn) nextToVisualsBtn.addEventListener('click', () => {
+                state.currentProject.status = 'script_generated';
+                renderCreateVideoStep();
+            });
+
+            // Visuals Generator
+            document.querySelectorAll('.generate-visual-btn').forEach(btn => btn.addEventListener('click', e => {
+                const scene = e.currentTarget.dataset.scene;
+                const prompt = e.currentTarget.dataset.prompt;
+                handleGenerateImage(parseInt(scene), prompt);
+            }));
+            const backToScriptBtn = document.getElementById('back-to-script-btn');
+            if(backToScriptBtn) backToScriptBtn.addEventListener('click', () => {
+                state.currentProject.visuals = [];
+                state.currentProject.script = [];
+                state.currentProject.hook = '';
+                state.currentProject.status = 'theme_selected';
+                renderCreateVideoStep();
+            });
+            const nextToMetadataBtn = document.getElementById('next-to-metadata-btn');
+            if(nextToMetadataBtn) nextToMetadataBtn.addEventListener('click', () => {
+                state.currentProject.status = 'visuals_generated';
+                renderCreateVideoStep();
+            });
+            
+            // Metadata Generator
+            const exportTxtBtn = document.getElementById('export-txt-btn');
+            if(exportTxtBtn) exportTxtBtn.addEventListener('click', () => exportProject('txt'));
+            const exportJsonBtn = document.getElementById('export-json-btn');
+            if(exportJsonBtn) exportJsonBtn.addEventListener('click', () => exportProject('json'));
+
+            // All copy buttons
+            document.querySelectorAll('.copy-btn').forEach(btn => {
+                const id = btn.id;
+                let content = '';
+                if (id.startsWith('copy-ai-prompt-')) {
+                    const scene = id.replace('copy-ai-prompt-', '');
+                    content = state.currentProject.visuals.find(v => v.scene == scene)?.ai_prompt;
+                } else if (id.startsWith('copy-stock-')) {
+                    const scene = id.replace('copy-stock-', '');
+                    content = state.currentProject.visuals.find(v => v.scene == scene)?.stock;
+                } else if (id.startsWith('copy-title-')) {
+                    const index = id.replace('copy-title-', '');
+                    content = state.currentProject.metadata.titles[index];
+                } else if (id === 'copy-description') {
+                    content = state.currentProject.metadata.description;
+                } else if (id === 'copy-about') {
+                    content = state.currentProject.metadata.aboutTopic;
+                } else if (id === 'copy-hashtags') {
+                    content = state.currentProject.metadata.hashtags?.join(' ');
+                } else if (id === 'copy-comment') {
+                    content = state.currentProject.metadata.firstComment;
+                }
+                btn.addEventListener('click', () => handleCopy(content, id));
+            });
+        }
+        
+        // --- Render Functions ---
+        function render() {
+            if (!state.isAuthReady) {
+                viewContainer.innerHTML = showLoading('Authenticating...');
+                return;
+            }
+
+            switch (state.view) {
+                case 'howItWorks':
+                    viewContainer.innerHTML = document.getElementById('howItWorks-view-template').innerHTML;
+                    break;
+                case 'myProjects':
+                    viewContainer.innerHTML = document.getElementById('myProjects-view-template').innerHTML;
+                    renderProjectsGrid();
+                    document.getElementById('my-projects-new-video-btn').addEventListener('click', createNewProject);
+                    break;
+                case 'createVideo':
+                    viewContainer.innerHTML = document.getElementById('createVideo-view-template').innerHTML;
+                    renderCreateVideoStep();
+                    const saveBtn = document.getElementById('save-project-btn');
+                    if(saveBtn) {
+                        saveBtn.disabled = !state.currentProject?.id;
+                        saveBtn.addEventListener('click', () => saveProject(state.currentProject));
+                    }
+                    break;
+                default:
+                    viewContainer.innerHTML = `<h2>View not found</h2>`;
+            }
+            
+            renderSidebar();
+            lucide.createIcons();
+        }
+        
+        function renderSidebar() {
+            if (state.isSidebarCollapsed) {
+                sidebar.classList.add('w-20');
+                sidebar.classList.remove('w-64');
+                mainContent.classList.add('md:ml-20');
+                mainContent.classList.remove('md:ml-64');
+                sidebarTitle.classList.add('hidden');
+                sidebarFooter.classList.add('hidden');
+                sidebarTextElements.forEach(el => el.classList.add('hidden'));
+                sidebarToggleBtn.innerHTML = `<i data-lucide="chevron-right"></i>`;
+            } else {
+                sidebar.classList.remove('w-20');
+                sidebar.classList.add('w-64');
+                mainContent.classList.remove('md:ml-20');
+                mainContent.classList.add('md:ml-64');
+                sidebarTitle.classList.remove('hidden');
+                sidebarFooter.classList.remove('hidden');
+                sidebarTextElements.forEach(el => el.classList.remove('hidden'));
+                sidebarToggleBtn.innerHTML = `<i data-lucide="chevron-left"></i>`;
+            }
+            
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('bg-red-800/50', 'text-white');
+                item.classList.add('text-gray-400', 'hover:bg-gray-700', 'hover:text-white');
+            });
+            const activeNavItem = document.getElementById(`nav-${state.view}`);
+            if (activeNavItem) {
+                activeNavItem.classList.add('bg-red-800/50', 'text-white');
+                activeNavItem.classList.remove('text-gray-400');
+            }
+        }
+        
+        function renderProjectsGrid() {
+            const container = document.getElementById('projects-grid-container');
+            if (!container) return;
+
+            if (state.projects.length === 0) {
+                container.innerHTML = `<div class="text-center py-20 bg-gray-800 rounded-lg border border-dashed border-gray-600">
+                    <i data-lucide="list-video" class="w-12 h-12 mx-auto text-gray-500 mb-4"></i>
+                    <h3 class="text-2xl font-semibold text-gray-300">No Projects Yet</h3>
+                    <p class="text-gray-500 mt-2">Click "New Video" to start creating your first dark psychology Short.</p>
+                </div>`;
+            } else {
+                container.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${state.projects.map(project => `
+                        <div class="bg-gray-800 rounded-lg border border-gray-700 p-5 flex flex-col justify-between transition-shadow hover:shadow-lg hover:shadow-red-900/20">
+                            <div>
+                                <h3 class="font-bold text-lg text-white truncate mb-2" title="${project.metadata?.titles?.[0] || 'Untitled Project'}">${project.metadata?.titles?.[0] || 'Untitled Project'}</h3>
+                                <p class="text-sm text-red-400 bg-red-900/30 inline-block px-2 py-1 rounded mb-3">${project.theme || 'No Theme'}</p>
+                                <p class="text-xs text-gray-400 mb-4">
+                                    Hook: <span class="italic">"${project.hook ? project.hook.substring(0, 50) + '...' : 'Not generated'}"</span>
+                                </p>
+                            </div>
+                            <div class="border-t border-gray-700 pt-4 mt-4 flex justify-between items-center">
+                                <p class="text-xs text-gray-500">${project.createdAt?.toDate().toLocaleDateString()}</p>
+                                <div class="flex items-center gap-2">
+                                    <button class="edit-project-btn p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-full transition-colors" data-id="${project.id}" title="Edit Project">
+                                        <i data-lucide="wand-2" class="w-4 h-4"></i>
+                                    </button>
+                                    <button class="delete-project-btn p-2 text-gray-400 hover:text-red-500 hover:bg-gray-700 rounded-full transition-colors" data-id="${project.id}" title="Delete Project">
+                                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>`;
+            }
+            
+            document.querySelectorAll('.edit-project-btn').forEach(btn => btn.addEventListener('click', (e) => {
+                const projectId = e.currentTarget.dataset.id;
+                const project = state.projects.find(p => p.id === projectId);
+                if(project) {
+                    state.currentProject = project;
+                    setView('createVideo');
+                }
+            }));
+            
+            document.querySelectorAll('.delete-project-btn').forEach(btn => btn.addEventListener('click', (e) => {
+                const projectId = e.currentTarget.dataset.id;
+                deleteProject(projectId);
+            }));
+        }
+
+        function renderCreateVideoStep() {
+            const container = document.getElementById('create-video-step-container');
+            if (!container) return;
+
+            const project = state.currentProject;
+            if (!project) {
+                container.innerHTML = `<div class="text-center animate-fadeIn">
+                    <h2 class="text-2xl font-bold text-gray-400 mb-4">No Project Selected</h2>
+                    <p class="text-gray-500 mb-6">Start a new video project to begin.</p>
+                    <button id="create-new-video-placeholder-btn" class="bg-red-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-red-700 transition-colors">
+                        Create New Video
+                    </button>
+                </div>`;
+                document.getElementById('create-new-video-placeholder-btn').addEventListener('click', createNewProject);
+                return;
+            }
+
+            let content = '';
+            let shouldGenerate = false;
+
+            if (!project.theme || project.status === 'new') {
+                content = renderThemeSelectorStep();
+            } else if (!project.hook || project.status === 'theme_selected') {
+                content = renderHookGeneratorStep();
+            } else if (project.status === 'hook_selected') {
+                content = renderScriptBuilderStep();
+                if (!project.script || project.script.length === 0) {
+                    shouldGenerate = true;
+                }
+            } else if (project.status === 'script_generated') {
+                content = renderVisualsGeneratorStep();
+                if (!project.visuals || project.visuals.length === 0) {
+                    shouldGenerate = true;
+                }
+            } else if (project.status === 'visuals_generated' || project.status === 'complete') {
+                content = renderMetadataGeneratorStep();
+                if (!project.metadata || !project.metadata.titles || project.metadata.titles.length === 0) {
+                    shouldGenerate = true;
+                }
+            } else {
+                content = renderHookGeneratorStep();
+            }
+
+            container.innerHTML = content;
+            attachStepEventListeners();
+            lucide.createIcons();
+
+            if (shouldGenerate) {
+                if (project.status === 'hook_selected') generateScript();
+                else if (project.status === 'script_generated') generateVisualPrompts();
+                else if (project.status === 'visuals_generated' || project.status === 'complete') generateMetadata();
+            }
+        }
+        
+        // --- Initial Load and Auth ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation
+            document.getElementById('nav-howItWorks').addEventListener('click', () => setView('howItWorks'));
+            document.getElementById('nav-createVideo').addEventListener('click', createNewProject);
+            document.getElementById('nav-myProjects').addEventListener('click', () => setView('myProjects'));
+
+            // Sidebar toggle
+            sidebarToggleBtn.addEventListener('click', () => {
+                state.isSidebarCollapsed = !state.isSidebarCollapsed;
+                renderSidebar();
+                lucide.createIcons();
+            });
+
+            // Handle window resize for responsive sidebar
+            window.addEventListener('resize', () => {
+                if (window.innerWidth < 768 && !state.isSidebarCollapsed) {
+                    state.isSidebarCollapsed = true;
+                    render();
+                } else if (window.innerWidth >= 768 && state.isSidebarCollapsed) {
+                    state.isSidebarCollapsed = false;
+                    render();
+                }
+            });
+
+            // Firebase Auth
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    state.user = user;
+                } else {
+                    try {
+                        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                            await signInWithCustomToken(auth, __initial_auth_token);
+                        } else {
+                            await signInAnonymously(auth);
+                        }
+                    } catch (error) {
+                        console.error("Authentication Error:", error);
+                    }
+                }
+                state.isAuthReady = true;
+
+                // Firestore listener
+                if (state.user) {
+                    const projectsCollectionPath = `artifacts/${appId}/users/${state.user.uid}/projects`;
+                    const q = query(collection(db, projectsCollectionPath));
+                    onSnapshot(q, (snapshot) => {
+                        state.projects = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })).sort((a, b) => (b.createdAt?.toDate() || 0) - (a.createdAt?.toDate() || 0));
+                        if (state.view === 'myProjects') {
+                            render();
+                        }
+                    }, (error) => {
+                        console.error("Error fetching projects:", error);
+                    });
+                }
+                render();
+            });
+        });
+
+    </script>
+</body>
+</html>
